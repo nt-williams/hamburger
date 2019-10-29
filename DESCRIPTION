@@ -1,0 +1,10 @@
+Package: hamburger
+Type: Package
+Title: Speeding you up, one function at a time
+Version: 0.1.0
+Author: Nick Williams
+Maintainer: Nick Williams <ntwilliams.personal@gmail.com>
+Description: So as hamburger is to helper, this package is to me. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
