@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{tidy.skim_df}
 \alias{tidy.skim_df}
-\title{Tidy a skimr table}
+\title{Tidy a numeric skimr table}
 \usage{
 \method{tidy}{skim_df}(
   x,
@@ -48,5 +48,5 @@
 
 }
 \description{
-Tidy a skimr table
+Tidy a numeric skimr table
 }

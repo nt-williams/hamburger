@@ -31,7 +31,7 @@ format_digits <- function(x, n) {
 #' @export
 generics::tidy
 
-#' Tidy a skimr table
+#' Tidy a numeric skimr table
 #'
 #' @param x an object of class skim_df
 #' @param missing return the missing column, logical
@@ -60,11 +60,15 @@ tidy.skim_df <- function(x, missing = FALSE, complete = TRUE, n = TRUE, mean = T
   status <- c(missing, complete, n, mean, sd, p0, p25, p50, p75, p100, hist)
   want <- stats[status]
 
-  out <- purrr::map(want, ~ {x[x$stat == .x, to_keep]})
+  out <- lapply(want, function(x) df[df$stat == x, to_keep])
+  out <- lapply(out, function(x) tidyr::pivot_wider(x, names_from = stat, values_from = formatted))
 
-  out <- purrr::map(out, ~ pivot_wider(.x,
-                                       names_from = stat,
-                                       values_from = formatted))
+  # out <- purrr::map(want, ~ {df[df$stat == .x, to_keep]})
 
-  suppressMessages(purrr::reduce(out, left_join))
+  # out <- purrr::map(out, ~ pivot_wider(.x,
+  #                                      names_from = stat,
+  #                                      values_from = formatted))
+
+  Reduce(merge, out)
+  # suppressMessages(purrr::reduce(out, left_join))
 }
