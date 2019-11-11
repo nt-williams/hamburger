@@ -16,13 +16,14 @@ combine_ci <- function(df, label) {
 
 #' Format digits to be the same length
 #'
-#' @param x vector to which apply
+#' @param x a numeric object
 #' @param n the number of digits to follow the decimal
 #'
-#' @return
+#' @return a character representation of the original input with the formatted digits
 #' @export
 #'
 #' @examples
+#' format_digits(1.34523435353, 2)
 format_digits <- function(x, n) {
   format(round(as.double(x), digits = n), nsmall = n, trim = TRUE)
 }
@@ -55,20 +56,26 @@ tidy.skim_df <- function(x, missing = FALSE, complete = TRUE, n = TRUE, mean = T
 
   df <- as.data.frame(x)
   nn <- names(df)
-  to_keep <- nn[!(nn %in% c("type", "level", "value"))]
+  to_keep <- nn[!(nn %in% c("type", "level", "formatted"))]
   stats <- c("missing", "complete", "n", "mean", "sd", "p0", "p25", "p50", "p75", "p100", "hist")
   status <- c(missing, complete, n, mean, sd, p0, p25, p50, p75, p100, hist)
   want <- stats[status]
 
   out <- lapply(want, function(x) df[df$stat == x, to_keep])
-  out <- lapply(out, function(x) tidyr::pivot_wider(x, names_from = stat, values_from = formatted))
+  out <- lapply(out, function(x) tidyr::pivot_wider(x, names_from = stat, values_from = value))
 
-  # out <- purrr::map(want, ~ {df[df$stat == .x, to_keep]})
+  tibble::as_tibble(Reduce(merge, out))
+}
 
-  # out <- purrr::map(out, ~ pivot_wider(.x,
-  #                                      names_from = stat,
-  #                                      values_from = formatted))
-
-  Reduce(merge, out)
-  # suppressMessages(purrr::reduce(out, left_join))
+#' Wrap text in paranthesis
+#'
+#' @param x a character or numeric value
+#'
+#' @return a a character representation of the original input surrounded in parenthesis
+#' @export
+#'
+#' @examples
+#' wrap_parenthesis(55)
+wrap_parenthesis <- function(x) {
+  paste0("(", x, ")")
 }

@@ -7,13 +7,16 @@
 format_digits(x, n)
 }
 \arguments{
-\item{x}{vector to which apply}
+\item{x}{a numeric object}
 
 \item{n}{the number of digits to follow the decimal}
 }
 \value{
-
+a character representation of the original input with the formatted digits
 }
 \description{
 Format digits to be the same length
+}
+\examples{
+format_digits(1.34523435353, 2)
 }
