@@ -3,6 +3,8 @@
 S3method(tidy,skim_df)
 export(combine_ci)
 export(format_digits)
+export(get_table)
+export(search_tables)
 export(tidy)
 export(wrap_parenthesis)
 importFrom(generics,tidy)

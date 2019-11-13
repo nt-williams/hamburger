@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{format_digits}
 \alias{format_digits}
-\title{Format digits to be the same length}
+\title{Format digits to be the same length.}
 \usage{
 format_digits(x, n)
 }
@@ -15,7 +15,7 @@ format_digits(x, n)
 a character representation of the original input with the formatted digits
 }
 \description{
-Format digits to be the same length
+Format digits to be the same length.
 }
 \examples{
 format_digits(1.34523435353, 2)

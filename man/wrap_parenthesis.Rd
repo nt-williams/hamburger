@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{wrap_parenthesis}
 \alias{wrap_parenthesis}
-\title{Wrap text in paranthesis}
+\title{Wrap text in paranthesis.}
 \usage{
 wrap_parenthesis(x)
 }
@@ -10,10 +10,10 @@ wrap_parenthesis(x)
 \item{x}{a character or numeric value}
 }
 \value{
-a a character representation of the original input surrounded in parenthesis
+a character representation of the original input surrounded in parenthesis
 }
 \description{
-Wrap text in paranthesis
+Wrap text in paranthesis.
 }
 \examples{
 wrap_parenthesis(55)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{combine_ci}
 \alias{combine_ci}
-\title{Combine bounds for presentation}
+\title{Combine bounds for presentation.}
 \usage{
 combine_ci(df, label)
 }
@@ -15,5 +15,5 @@ combine_ci(df, label)
 
 }
 \description{
-Combine bounds for presentation
+Combine bounds for presentation.
 }

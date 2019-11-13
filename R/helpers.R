@@ -1,20 +1,18 @@
 
-#' Combine bounds for presentation
+#' Combine bounds for presentation.
 #'
 #' @param df a dataframe or tibble
 #' @param label name of the new column
 #'
 #' @return
 #' @export
-#'
-#' @examples
 combine_ci <- function(df, label) {
   out <- unite(df, !! label, contains("low"), contains("high"), sep = ", ")
   out <- mutate(out, !! label := paste0("(", .data[[label]], ")"))
   return(out)
 }
 
-#' Format digits to be the same length
+#' Format digits to be the same length.
 #'
 #' @param x a numeric object
 #' @param n the number of digits to follow the decimal
@@ -32,7 +30,7 @@ format_digits <- function(x, n) {
 #' @export
 generics::tidy
 
-#' Tidy a numeric skimr table
+#' Tidy a numeric skimr table.
 #'
 #' @param x an object of class skim_df
 #' @param missing return the missing column, logical
@@ -49,8 +47,6 @@ generics::tidy
 #'
 #' @return
 #' @export
-#'
-#' @examples
 tidy.skim_df <- function(x, missing = FALSE, complete = TRUE, n = TRUE, mean = TRUE, sd = TRUE,
                          p0 = FALSE, p25 = FALSE, p50 = FALSE, p75 = FALSE, p100 = FALSE, hist = FALSE) {
 
@@ -67,15 +63,41 @@ tidy.skim_df <- function(x, missing = FALSE, complete = TRUE, n = TRUE, mean = T
   tibble::as_tibble(Reduce(merge, out))
 }
 
-#' Wrap text in paranthesis
+#' Wrap text in paranthesis.
 #'
 #' @param x a character or numeric value
 #'
-#' @return a a character representation of the original input surrounded in parenthesis
+#' @return a character representation of the original input surrounded in parenthesis
 #' @export
 #'
 #' @examples
 #' wrap_parenthesis(55)
 wrap_parenthesis <- function(x) {
   paste0("(", x, ")")
+}
+
+#' Find table indexes from an html document matching patterns.
+#'
+#' @param x An object of class \code{xml_document}
+#' @param pattern Pattern to search for within html nodes of CSS class "table"
+#'
+#' @return a vector of indexes that indicates nodes matching the pattern.
+#' @export
+search_tables <- function(x, pattern) {
+  nodes <- as.character(html_nodes(x, css = "table"))
+  i <- grep(pattern, nodes)
+  return(i)
+}
+
+#' Parse an html table into a tibble.
+#'
+#' @param x An object of class \code{xml_document}
+#' @param i html node index to parse as a tibble
+#'
+#' @return The html node as a tibble.
+#' @export
+get_table <- function(x, i) {
+  node <- rvest::html_table(rvest::html_nodes(x, css = "table")[[i]], fill = T)
+  node_tbl <- tibble::as_tibble(node, .name_repair = "unique")
+  return(node_tbl)
 }
